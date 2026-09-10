@@ -326,6 +326,12 @@ textarea{min-height:120px;resize:vertical}
 
 .full{grid-column:1/-1}
 
+.hidden-field{
+
+  display:none;
+
+}
+
 .progress{
 
   display:flex;
@@ -412,7 +418,25 @@ textarea{min-height:120px;resize:vertical}
 
 .recommendation p{color:#cdd2d4;line-height:1.5}
 
-.match-score{
+.recommendation .caution{
+
+  margin-top:12px;
+
+  padding:12px;
+
+  background:rgba(255,194,28,.1);
+
+  border-left:3px solid var(--yellow);
+
+  border-radius:6px;
+
+  font-size:13px;
+
+  color:#ffc21c;
+
+}
+
+.rec-fit-badge{
 
   display:inline-block;
 
@@ -421,6 +445,52 @@ textarea{min-height:120px;resize:vertical}
   color:#9ff0ba;
 
   font-weight:800;
+
+  font-size:14px;
+
+}
+
+.rec-alternatives{
+
+  margin-top:16px;
+
+  padding-top:16px;
+
+  border-top:1px solid #2c3336;
+
+}
+
+.rec-alternative{
+
+  margin-top:12px;
+
+  padding:12px;
+
+  background:rgba(102,209,143,.05);
+
+  border-radius:8px;
+
+  border-left:2px solid #66d18f;
+
+}
+
+.rec-alternative h4{
+
+  margin:0 0 6px;
+
+  color:#66d18f;
+
+  font-size:15px;
+
+}
+
+.rec-alternative p{
+
+  margin:0;
+
+  color:#aeb6ba;
+
+  font-size:13px;
 
 }
 
@@ -554,6 +624,14 @@ textarea{min-height:120px;resize:vertical}
 
   font-size:12px;
 
+  cursor:pointer;
+
+}
+
+.quick-buttons button:hover{
+
+  background:#f0f0f0;
+
 }
 
 .chat-entry{
@@ -567,6 +645,46 @@ textarea{min-height:120px;resize:vertical}
 .chat-entry input{flex:1}
 
 .chat-entry button{width:50px}
+
+.form-actions{
+
+  display:flex;
+
+  gap:10px;
+
+  margin-top:20px;
+
+}
+
+.form-actions button{
+
+  flex:1;
+
+  padding:12px;
+
+  border:0;
+
+  border-radius:8px;
+
+  font-weight:700;
+
+}
+
+.form-actions .btn-primary{
+
+  background:var(--yellow);
+
+  color:#111;
+
+}
+
+.form-actions .btn-secondary{
+
+  background:#ddd;
+
+  color:#111;
+
+}
 
 .why{
 
@@ -938,7 +1056,7 @@ footer strong{color:white}
 
       </span>
 
-      <h3>Describe your project</h3>
+      <h3 id="formTitle">Tell us about your project</h3>
 
       <form id="jobForm">
 
@@ -970,9 +1088,19 @@ footer strong{color:white}
 
           <div>
 
+            <label>Start date</label>
+
+            <input id="startDate" type="date" required>
+
+          </div>
+
+          <div>
+
             <label>How long do you need it?</label>
 
-            <select id="duration">
+            <select id="duration" required>
+
+              <option value="">Select duration</option>
 
               <option>1 day</option>
 
@@ -988,23 +1116,17 @@ footer strong{color:white}
 
           </div>
 
-          <div>
+          <div class="full hidden-field" id="deliveryField">
 
-            <label>Start date</label>
-
-            <input id="date" type="date" required>
-
-          </div>
-
-          <div>
-
-            <label>Delivery?</label>
+            <label>Do you need delivery to the jobsite?</label>
 
             <select id="delivery">
 
-              <option>Yes, deliver it</option>
+              <option value="">Select option</option>
 
-              <option>No, I can pick it up</option>
+              <option>Yes, include delivery</option>
+
+              <option>No, I'll pick it up</option>
 
               <option>Not sure yet</option>
 
@@ -1012,15 +1134,103 @@ footer strong{color:white}
 
           </div>
 
-          <div class="full">
+          <div class="hidden-field" id="budgetField">
 
-            <button class="btn" type="submit">
+            <label>Daily rental budget</label>
 
-              Match My Job →
+            <select id="budget">
 
-            </button>
+              <option value="">Any budget</option>
+
+              <option>Under $200</option>
+
+              <option>$200–$500</option>
+
+              <option>$500–$1,000</option>
+
+              <option>$1,000+</option>
+
+            </select>
 
           </div>
+
+          <div class="hidden-field" id="accessWidthField">
+
+            <label>Access width (e.g., gate/driveway)</label>
+
+            <input id="accessWidth" placeholder="e.g., 6 feet" type="text">
+
+          </div>
+
+          <div class="hidden-field" id="terrainField">
+
+            <label>Ground conditions</label>
+
+            <select id="terrain">
+
+              <option value="">Select terrain type</option>
+
+              <option>Flat/level</option>
+
+              <option>Sloped/uneven</option>
+
+              <option>Soft/muddy</option>
+
+              <option>Hard/rocky</option>
+
+            </select>
+
+          </div>
+
+          <div class="hidden-field" id="depthField">
+
+            <label>Digging depth needed</label>
+
+            <input id="depth" placeholder="e.g., 6 feet" type="text">
+
+          </div>
+
+          <div class="hidden-field" id="heightField">
+
+            <label>Working height needed</label>
+
+            <input id="height" placeholder="e.g., 35 feet" type="text">
+
+          </div>
+
+          <div class="hidden-field" id="equipmentField">
+
+            <label>Do you already know the equipment type?</label>
+
+            <select id="equipmentType">
+
+              <option value="">Not sure / want suggestions</option>
+
+              <option>Excavator</option>
+
+              <option>Skid Steer Loader</option>
+
+              <option>Compact Track Loader</option>
+
+              <option>Telehandler</option>
+
+              <option>Boom Lift</option>
+
+              <option>Scissor Lift</option>
+
+              <option>Backhoe</option>
+
+              <option>Wheel Loader</option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+        <div class="form-actions">
+
+          <button type="submit" class="btn btn-primary">Get Recommendations</button>
 
         </div>
 
@@ -1028,51 +1238,45 @@ footer strong{color:white}
 
       <div class="recommendation" id="recommendation">
 
-        <span class="ai-badge">
+        <h3 id="primaryMachine"></h3>
 
-          <span class="ai-dot"></span>
+        <p id="primaryReason"></p>
 
-          RECOMMENDATION READY
+        <div class="rec-fit-badge" id="fitBadge"></div>
 
-        </span>
+        <div id="primaryCaution" class="caution" style="display:none;"></div>
 
-        <h3 id="machineName"></h3>
+        <div class="rec-alternatives" id="alternativesContainer" style="display:none;">
 
-        <p id="machineReason"></p>
+          <p style="font-weight:700;color:#fff;margin:0 0 12px;">Other strong options:</p>
 
-        <span class="match-score" id="matchScore"></span>
+          <div id="alternativesList"></div>
 
-        <br><br>
+        </div>
 
-        <button class="btn" id="quoteBtn">
+        <div style="margin-top:18px;padding:16px;background:rgba(255,194,28,.08);border-radius:8px;border-left:2px solid var(--yellow);">
 
-          Shop Local Availability →
+          <p style="margin:0;color:#ffc21c;font-size:13px;font-weight:600;">Next Step</p>
 
-        </button>
+          <p style="margin:6px 0 0;color:#cdd2d4;font-size:13px;">We'll prepare a rental request and connect you with available suppliers in your area.</p>
 
-      </div>
-
-      <div class="quote-box" id="quoteBox">
-
-        ✓ Rental request prepared. The production version of MachRelay will
-
-        compare matching suppliers serving your area and route your request.
+        </div>
 
       </div>
 
     </div>
 
-    <div class="card chat-card" id="chatCard">
+    <div class="chat-card">
 
       <div class="chat-header">
 
-        <div class="bot-icon">⚙</div>
+        <div class="bot-icon">⚙️</div>
 
         <div>
 
-          <strong>MachGuide</strong><br>
+          <div style="font-weight:700">MachGuide</div>
 
-          <small>Equipment Rental Assistant</small>
+          <div style="font-size:12px;color:#888">Ask a question</div>
 
         </div>
 
@@ -1082,31 +1286,7 @@ footer strong{color:white}
 
         <div class="msg bot">
 
-          Hi — I'm MachGuide. Tell me what you're working on and I'll help
-
-          narrow down equipment, access requirements and rental questions.
-
-        </div>
-
-        <div class="quick-buttons">
-
-          <button onclick="quickAsk('What size excavator do I need?')">
-
-            Excavator size
-
-          </button>
-
-          <button onclick="quickAsk('Do I need a skid steer or track loader?')">
-
-            Skid steer vs CTL
-
-          </button>
-
-          <button onclick="quickAsk('How does delivery work?')">
-
-            Delivery
-
-          </button>
+          What equipment are you looking for? I can help answer questions about specific machines, their capabilities, or which might work best for your job.
 
         </div>
 
@@ -1114,9 +1294,9 @@ footer strong{color:white}
 
       <div class="chat-entry">
 
-        <input id="chatInput" placeholder="Ask MachGuide...">
+        <input id="chatInput" type="text" placeholder="e.g., What's the difference between a skid steer and a track loader?">
 
-        <button class="btn" onclick="sendChat()">↑</button>
+        <button id="chatBtn" type="button">→</button>
 
       </div>
 
@@ -1128,23 +1308,17 @@ footer strong{color:white}
 
 <section class="why" id="why">
 
-  <h2>Why contractors use <span class="yellow">MachRelay</span></h2>
+  <h2>Why MachRelay</h2>
 
   <div class="why-grid">
 
     <div class="why-card">
 
-      <div class="icon">⚙️</div>
+      <div class="icon">🎯</div>
 
-      <h3>Start with the job</h3>
+      <h3>Job-Based Matching</h3>
 
-      <p>
-
-        You don't have to know the exact model or machine class.
-
-        Describe the work and MachRelay helps narrow it down.
-
-      </p>
+      <p>Describe your project, not the equipment. Our AI translates your needs into the right machines.</p>
 
     </div>
 
@@ -1152,15 +1326,9 @@ footer strong{color:white}
 
       <div class="icon">📍</div>
 
-      <h3>Find local options</h3>
+      <h3>Local Routing</h3>
 
-      <p>
-
-        Rental requests can be routed based on equipment type,
-
-        service area and delivery requirements.
-
-      </p>
+      <p>We connect you with nearby suppliers who can serve your ZIP code and timeline.</p>
 
     </div>
 
@@ -1168,15 +1336,9 @@ footer strong{color:white}
 
       <div class="icon">⚡</div>
 
-      <h3>Cut the phone calls</h3>
+      <h3>No More Phone Tag</h3>
 
-      <p>
-
-        One organized request can eventually reach multiple matching suppliers,
-
-        instead of you repeating the same job details over and over.
-
-      </p>
+      <p>One request reaches multiple suppliers. Compare options, rates, and availability instantly.</p>
 
     </div>
 
@@ -1184,59 +1346,79 @@ footer strong{color:white}
 
 </section>
 
-<section class="compare">
+<section class="compare" id="equipment">
 
-  <h2>One search instead of five phone calls.</h2>
+  <h2>Common Equipment Choices</h2>
 
   <div class="compare-wrap">
 
     <div class="compare-row header">
 
-      <div></div>
+      <div>Machine</div>
 
-      <div>Traditional Search</div>
+      <div>Best For</div>
 
-      <div>MachRelay</div>
-
-    </div>
-
-    <div class="compare-row">
-
-      <div>Explain your job</div>
-
-      <div>Repeatedly</div>
-
-      <div><strong>Once</strong></div>
+      <div>Capacity</div>
 
     </div>
 
     <div class="compare-row">
 
-      <div>Equipment guidance</div>
+      <div><strong>Excavator</strong></div>
 
-      <div>Varies</div>
+      <div>Trenching, digging, site prep</div>
 
-      <div><strong>Built in</strong></div>
-
-    </div>
-
-    <div class="compare-row">
-
-      <div>Supplier search</div>
-
-      <div>Manual</div>
-
-      <div><strong>Matched</strong></div>
+      <div>2–6 tons</div>
 
     </div>
 
     <div class="compare-row">
 
-      <div>Rental request</div>
+      <div><strong>Skid Steer Loader</strong></div>
 
-      <div>Call each yard</div>
+      <div>Versatile, compact sites</div>
 
-      <div><strong>One request</strong></div>
+      <div>1.5–2.5 tons</div>
+
+    </div>
+
+    <div class="compare-row">
+
+      <div><strong>Compact Track Loader</strong></div>
+
+      <div>Soft ground, minimal compaction</div>
+
+      <div>3–5 tons</div>
+
+    </div>
+
+    <div class="compare-row">
+
+      <div><strong>Telehandler</strong></div>
+
+      <div>Lifting, placing, extended reach</div>
+
+      <div>2.5–4 ton lift</div>
+
+    </div>
+
+    <div class="compare-row">
+
+      <div><strong>Boom Lift</strong></div>
+
+      <div>Elevated work, hard-to-reach areas</div>
+
+      <div>40–80 ft height</div>
+
+    </div>
+
+    <div class="compare-row">
+
+      <div><strong>Scissor Lift</strong></div>
+
+      <div>Vertical access, stable platform</div>
+
+      <div>25–50 ft height</div>
 
     </div>
 
@@ -1244,49 +1426,19 @@ footer strong{color:white}
 
 </section>
 
-<section class="categories" id="equipment">
+<section class="categories" id="categories">
 
-  <h2>Popular equipment</h2>
+  <h2>Browse by Equipment Type</h2>
 
   <div class="machine-grid">
 
     <div class="machine">
 
-      <span>🚜</span>
-
-      <strong>Mini Excavators</strong>
-
-      <p>Digging, trenching, foundations and tight-access work.</p>
-
-    </div>
-
-    <div class="machine">
-
-      <span>🏗️</span>
-
-      <strong>Skid Steers / CTLs</strong>
-
-      <p>Grading, material handling and site cleanup.</p>
-
-    </div>
-
-    <div class="machine">
-
-      <span>⬆️</span>
-
-      <strong>Boom Lifts</strong>
-
-      <p>Elevated work requiring reach and maneuverability.</p>
-
-    </div>
-
-    <div class="machine">
-
       <span>🔧</span>
 
-      <strong>Scissor Lifts</strong>
+      <strong>Excavators</strong>
 
-      <p>Stable vertical access for indoor and outdoor work.</p>
+      <p>Digging, trenching, demolition</p>
 
     </div>
 
@@ -1294,9 +1446,39 @@ footer strong{color:white}
 
       <span>📦</span>
 
-      <strong>Telehandlers</strong>
+      <strong>Loaders</strong>
 
-      <p>Moving heavy materials around active jobsites.</p>
+      <p>Moving, loading, compaction</p>
+
+    </div>
+
+    <div class="machine">
+
+      <span>📍</span>
+
+      <strong>Compactors</strong>
+
+      <p>Soil prep, pavement</p>
+
+    </div>
+
+    <div class="machine">
+
+      <span>⬆️</span>
+
+      <strong>Lifts</strong>
+
+      <p>Elevated work access</p>
+
+    </div>
+
+    <div class="machine">
+
+      <span>🏗️</span>
+
+      <strong>Other Equipment</strong>
+
+      <p>Crushers, generators, more</p>
 
     </div>
 
@@ -1308,27 +1490,11 @@ footer strong{color:white}
 
   <div class="supplier-box">
 
-    <h2>Own rental equipment?</h2>
+    <h2>Reach Thousands of Contractors</h2>
 
-    <p>
+    <p>Are you a rental supplier? Join MachRelay and connect with equipment requests in your area.</p>
 
-      MachRelay is building a network that helps rental suppliers put more
-
-      machines to work by connecting them with active local rental demand.
-
-    </p>
-
-    <button
-
-      class="btn btn-dark"
-
-      onclick="alert('Supplier onboarding dashboard is the next production feature.')"
-
-    >
-
-      Join the Supplier Network
-
-    </button>
+    <a class="btn" href="#">Become a Supplier Partner</a>
 
   </div>
 
@@ -1338,15 +1504,27 @@ footer strong{color:white}
 
   <div>
 
-    <strong>MACHRELAY</strong><br>
+    <strong>MachRelay</strong><br>
 
-    Tell us the job. We'll find the machine.
+    Smarter equipment rental for every job.
 
   </div>
 
   <div>
 
-    © 2026 MachRelay
+    <strong>Quick Links</strong><br>
+
+    <a href="#finder">Find Equipment</a><br>
+
+    <a href="#why">Why MachRelay</a>
+
+  </div>
+
+  <div>
+
+    <strong>For Suppliers</strong><br>
+
+    <a href="#suppliers">Become a Partner</a>
 
   </div>
 
@@ -1354,723 +1532,555 @@ footer strong{color:white}
 
 <div class="floating-ai">
 
-  <button onclick="openGuide()">⚙ Ask MachGuide</button>
+  <button onclick="document.getElementById('finder').scrollIntoView({behavior:'smooth'})">⚙️ Find Equipment</button>
 
 </div>
 
 <script>
 
-const jobForm = document.getElementById("jobForm");
+// Form state tracking
 
-const recommendation = document.getElementById("recommendation");
+const formState = {
 
-const machineName = document.getElementById("machineName");
+  job: '',
 
-const machineReason = document.getElementById("machineReason");
+  zip: '',
 
-const matchScore = document.getElementById("matchScore");
+  startDate: '',
 
-const quoteBox = document.getElementById("quoteBox");
+  duration: '',
 
-const chatFeed = document.getElementById("chatFeed");
+  delivery: '',
 
-const chatInput = document.getElementById("chatInput");
+  budget: '',
 
-const tomorrow = new Date();
+  accessWidth: '',
 
-tomorrow.setDate(tomorrow.getDate() + 1);
+  terrain: '',
 
-document.getElementById("date").value =
+  depth: '',
 
-  tomorrow.toISOString().split("T")[0];
+  height: '',
 
-function recommendMachine(text){
+  equipmentType: ''
 
-  text = text.toLowerCase();
+};
 
-  if(/trench|dig|excavat|foundation|stump|sewer|drain|hole|pool/.test(text)){
+// Show/hide fields based on job description
 
-    return {
+document.getElementById('job').addEventListener('input', function(e) {
 
-      machine:"Mini Excavator",
+  const jobText = e.target.value.toLowerCase();
 
-      score:"94% preliminary job match",
+  formState.job = e.target.value;
 
-      reason:
+  // Show delivery field early
 
-      "Your project involves digging or trenching. A mini excavator is often a strong option because it combines digging capability with relatively compact jobsite access."
+  document.getElementById('deliveryField').style.display = 'block';
 
-    };
+  // Excavation-related keywords
 
-  }
+  if (jobText.includes('dig') || jobText.includes('trench') || jobText.includes('excavat')) {
 
-  if(/grade|grading|dirt|debris|mulch|gravel|landscape|load|cleanup|snow/.test(text)){
+    document.getElementById('depthField').style.display = 'block';
 
-    return {
+    document.getElementById('terrainField').style.display = 'block';
 
-      machine:"Skid Steer / Compact Track Loader",
+    document.getElementById('accessWidthField').style.display = 'block';
 
-      score:"91% preliminary job match",
+  } else {
 
-      reason:
-
-      "Your job involves grading, loading or moving material. A skid steer or compact track loader is one of the most versatile machines for this type of work."
-
-    };
+    document.getElementById('depthField').style.display = 'none';
 
   }
 
-  if(/roof|tree|height|sign|reach|exterior|window/.test(text)){
+  // Lifting-related keywords
 
-    return {
+  if (jobText.includes('lift') || jobText.includes('reach') || jobText.includes('height') || jobText.includes('place')) {
 
-      machine:"Boom Lift",
+    document.getElementById('heightField').style.display = 'block';
 
-      score:"90% preliminary job match",
+  } else {
 
-      reason:
-
-      "Your project appears to require elevated access with horizontal reach. A boom lift is typically better suited to that than a straight vertical platform."
-
-    };
+    document.getElementById('heightField').style.display = 'none';
 
   }
 
-  if(/ceiling|warehouse|indoor|sprinkler|duct|lighting|vertical/.test(text)){
+  // Budget field
 
-    return {
+  if (jobText.length > 20) {
 
-      machine:"Scissor Lift",
-
-      score:"92% preliminary job match",
-
-      reason:
-
-      "Your project appears to require stable vertical access. A scissor lift is commonly used for overhead work where horizontal reach is not the primary requirement."
-
-    };
+    document.getElementById('budgetField').style.display = 'block';
 
   }
 
-  if(/pallet|lumber|framing|masonry|fork|material|truss/.test(text)){
+  // Equipment type field
 
-    return {
+  if (jobText.length > 30) {
 
-      machine:"Telehandler",
-
-      score:"89% preliminary job match",
-
-      reason:
-
-      "Your project involves lifting or positioning heavy materials. A telehandler provides forklift-style handling with greater reach across a construction site."
-
-    };
+    document.getElementById('equipmentField').style.display = 'block';
 
   }
 
-  return {
+});
 
-    machine:"More Job Details Needed",
+// Update form state
 
-    score:"MachRelay needs one more detail",
+document.getElementById('zip').addEventListener('change', (e) => formState.zip = e.target.value);
 
-    reason:
+document.getElementById('startDate').addEventListener('change', (e) => formState.startDate = e.target.value);
 
-    "I can narrow this down further, but the job description does not yet clearly indicate the primary task. Tell MachGuide whether you are digging, lifting, grading, moving material or working at height."
+document.getElementById('duration').addEventListener('change', (e) => formState.duration = e.target.value);
 
-  };
+document.getElementById('delivery').addEventListener('change', (e) => formState.delivery = e.target.value);
+
+document.getElementById('budget').addEventListener('change', (e) => formState.budget = e.target.value);
+
+document.getElementById('accessWidth').addEventListener('change', (e) => formState.accessWidth = e.target.value);
+
+document.getElementById('terrain').addEventListener('change', (e) => formState.terrain = e.target.value);
+
+document.getElementById('depth').addEventListener('change', (e) => formState.depth = e.target.value);
+
+document.getElementById('height').addEventListener('change', (e) => formState.height = e.target.value);
+
+document.getElementById('equipmentType').addEventListener('change', (e) => formState.equipmentType = e.target.value);
+
+// Equipment recommendation engine
+
+function recommendEquipment() {
+
+  const job = formState.job.toLowerCase();
+
+  let primary = null;
+
+  let alternatives = [];
+
+  let reason = '';
+
+  let caution = '';
+
+  // Excavator recommendation
+
+  if (job.includes('dig') || job.includes('trench') || job.includes('excavat') || job.includes('hole')) {
+
+    primary = 'Excavator';
+
+    reason = 'Perfect for digging, trenching, and site preparation. Offers precision and power for subsurface work.';
+
+    if (formState.accessWidth && parseInt(formState.accessWidth) < 8) {
+
+      caution = '⚠️ Your access is narrow. Ensure the excavator size fits through your gate or entry point before rental.';
+
+    }
+
+    if (formState.depth && parseInt(formState.depth) > 15) {
+
+      caution = '⚠️ Deep digging required. Consider machine size and available swing radius for your jobsite.';
+
+    }
+
+    alternatives.push({
+
+      name: 'Backhoe',
+
+      reason: 'Good alternative if you need both digging and light loading in a more compact footprint.'
+
+    });
+
+    alternatives.push({
+
+      name: 'Compact Track Loader',
+
+      reason: 'For softer ground, minimizes soil compaction while providing digging capability.'
+
+    });
+
+  }
+
+  // Lifting-related recommendation
+
+  else if (job.includes('lift') || job.includes('reach') || job.includes('height') || job.includes('access')) {
+
+    if (formState.height && parseInt(formState.height) > 50) {
+
+      primary = 'Boom Lift';
+
+      reason = 'Extended reach lifts provide high elevation and access to difficult areas.';
+
+    } else if (formState.height && parseInt(formState.height) > 25) {
+
+      primary = 'Scissor Lift';
+
+      reason = 'Stable vertical access platform ideal for elevated work and building maintenance.';
+
+    } else {
+
+      primary = 'Telehandler';
+
+      reason = 'Versatile lifting and placing machine with excellent reach and load capacity.';
+
+    }
+
+    if (formState.terrain && (formState.terrain.includes('uneven') || formState.terrain.includes('sloped'))) {
+
+      caution = '⚠️ Uneven ground may require leveling or outriggers for safe operation.';
+
+    }
+
+    alternatives.push({
+
+      name: 'Boom Lift',
+
+      reason: 'For maximum vertical reach and extended height capability.'
+
+    });
+
+    alternatives.push({
+
+      name: 'Scissor Lift',
+
+      reason: 'For stable, high-capacity work on level ground.'
+
+    });
+
+  }
+
+  // General construction/prep
+
+  else if (job.includes('grade') || job.includes('level') || job.includes('prep') || job.includes('clear')) {
+
+    primary = 'Wheel Loader';
+
+    reason = 'Ideal for grading, site preparation, and material handling.';
+
+    alternatives.push({
+
+      name: 'Skid Steer Loader',
+
+      reason: 'More compact, good for tighter jobsites with similar capabilities.'
+
+    });
+
+    alternatives.push({
+
+      name: 'Compact Track Loader',
+
+      reason: 'Better for soft ground; reduces soil disturbance and compaction.'
+
+    });
+
+  }
+
+  // Loading/moving
+
+  else if (job.includes('load') || job.includes('move') || job.includes('transfer') || job.includes('place')) {
+
+    if (formState.accessWidth && parseInt(formState.accessWidth) < 10) {
+
+      primary = 'Skid Steer Loader';
+
+      reason = 'Compact and maneuverable, perfect for restricted access areas.';
+
+    } else {
+
+      primary = 'Telehandler';
+
+      reason = 'Offers lifting, reaching, and placing with excellent visibility and control.';
+
+    }
+
+    alternatives.push({
+
+      name: 'Compact Track Loader',
+
+      reason: 'Good for soft ground with reduced compaction.'
+
+    });
+
+    alternatives.push({
+
+      name: 'Skid Steer Loader',
+
+      reason: 'Highly versatile with many attachment options.'
+
+    });
+
+  }
+
+  // Demolition/heavy work
+
+  else if (job.includes('demo') || job.includes('demolit') || job.includes('break') || job.includes('crush')) {
+
+    primary = 'Excavator';
+
+    reason = 'Best for controlled demolition and heavy material handling.';
+
+    alternatives.push({
+
+      name: 'Skid Steer Loader',
+
+      reason: 'Suitable for smaller demolition with breaker attachments.'
+
+    });
+
+  }
+
+  // Default recommendation
+
+  else {
+
+    primary = 'Skid Steer Loader';
+
+    reason = 'Versatile workhorse for a wide range of construction and landscaping tasks.';
+
+    alternatives.push({
+
+      name: 'Compact Track Loader',
+
+      reason: 'Similar capabilities with better performance on soft or uneven ground.'
+
+    });
+
+    alternatives.push({
+
+      name: 'Excavator',
+
+      reason: 'For heavy digging or demolition work.'
+
+    });
+
+  }
+
+  return { primary, reason, alternatives, caution };
 
 }
 
-jobForm.addEventListener("submit",function(e){
+// Form submission
+
+document.getElementById('jobForm').addEventListener('submit', function(e) {
 
   e.preventDefault();
 
-  const result = recommendMachine(
+  const rec = recommendEquipment();
 
-    document.getElementById("job").value
+  // Populate recommendation
 
-  );
+  document.getElementById('primaryMachine').textContent = rec.primary;
 
-  machineName.textContent = result.machine;
+  document.getElementById('primaryReason').textContent = rec.reason;
 
-  machineReason.textContent = result.reason;
+  document.getElementById('fitBadge').textContent = '✓ Recommended for this job';
 
-  matchScore.textContent = result.score;
+  // Caution
 
-  recommendation.style.display = "block";
+  if (rec.caution) {
 
-  quoteBox.style.display = "none";
+    document.getElementById('primaryCaution').textContent = rec.caution;
 
-  recommendation.scrollIntoView({
+    document.getElementById('primaryCaution').style.display = 'block';
 
-    behavior:"smooth",
+  } else {
 
-    block:"center"
+    document.getElementById('primaryCaution').style.display = 'none';
 
-  });
+  }
+
+  // Alternatives
+
+  if (rec.alternatives.length > 0) {
+
+    const altList = document.getElementById('alternativesList');
+
+    altList.innerHTML = '';
+
+    rec.alternatives.forEach(alt => {
+
+      const altEl = document.createElement('div');
+
+      altEl.className = 'rec-alternative';
+
+      altEl.innerHTML = `<h4>${alt.name}</h4><p>${alt.reason}</p>`;
+
+      altList.appendChild(altEl);
+
+    });
+
+    document.getElementById('alternativesContainer').style.display = 'block';
+
+  } else {
+
+    document.getElementById('alternativesContainer').style.display = 'none';
+
+  }
+
+  // Show recommendation
+
+  document.getElementById('recommendation').style.display = 'block';
+
+  // Scroll into view
+
+  setTimeout(() => {
+
+    document.getElementById('recommendation').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  }, 100);
 
 });
 
-document.getElementById("quoteBtn").addEventListener("click",function(){
+// MachGuide chat (conversational follow-ups)
 
-  quoteBox.style.display = "block";
+const machGuideKnowledge = {
 
-  const lead = {
+  'excavator': {
 
-    job:document.getElementById("job").value,
+    response: 'Excavators are powerful digging machines available in sizes from 1.5 to 6+ tons. What specific work are you doing? Trenching, foundation digging, or demolition? I can help you pick the right size.',
 
-    zip:document.getElementById("zip").value,
+    followUp: true
 
-    duration:document.getElementById("duration").value,
+  },
 
-    date:document.getElementById("date").value,
+  'skid steer': {
 
-    delivery:document.getElementById("delivery").value,
+    response: 'Skid steers are incredibly versatile—they can dig, lift, move materials, grade, and more with different attachments. Great for tight spaces. Are you looking for specific capabilities or concerned about ground impact?',
 
-    machine:machineName.textContent,
+    followUp: true
 
-    created:new Date().toISOString()
+  },
 
-  };
+  'track loader': {
 
-  localStorage.setItem(
+    response: 'Compact track loaders are like skid steers but with tracks instead of wheels. They spread weight better on soft ground and cause less compaction. Perfect for landscaping or wet jobsites. What's your terrain like?',
 
-    "machrelay-demo-lead",
+    followUp: true
 
-    JSON.stringify(lead)
+  },
 
-  );
+  'telehandler': {
 
-});
+    response: 'Telehandlers combine lifting and reaching. They're great for placing materials at height and extending beyond tight spaces. How high do you need to reach, and what weight are you lifting?',
 
-function botReply(text){
+    followUp: true
 
-  const t = text.toLowerCase();
+  },
 
-  if(/excavator|dig|trench/.test(t)){
+  'lift': {
 
-    return "Excavator size depends on digging depth, reach, material and jobsite access. For residential trenching or tight access, a mini excavator is often the place to start.";
+    response: 'We have boom lifts for extended reach and scissor lifts for stable vertical access. Boom lifts go higher and reach farther; scissors lift straight up. How high is your work, and is your ground level?',
+
+    followUp: true
+
+  },
+
+  'access width': {
+
+    response: 'Tight access is common. Skid steers and compact track loaders are the most maneuverable. Can you give me the exact width of your gate or entryway? I'll make sure our recommendation fits.',
+
+    followUp: true
+
+  },
+
+  'ground condition': {
+
+    response: 'Ground matters a lot. Soft/muddy ground? Tracks are better than wheels. Hard/rocky? Wheels work fine. Sloped ground? Stability is crucial. What's your terrain like?',
+
+    followUp: true
+
+  },
+
+  'cost': {
+
+    response: 'Equipment costs vary widely by size and duration. Daily rates usually run $150–$600+ depending on the machine and location. Delivery adds $100–$500. What's your budget range?',
+
+    followUp: false
+
+  },
+
+  'delivery': {
+
+    response: 'Most suppliers offer local delivery. Costs depend on distance—usually $100–$500. Pickup is an option too if you have the transport. Where is your jobsite?',
+
+    followUp: false
 
   }
 
-  if(/skid|track loader|ctl/.test(t)){
+};
 
-    return "Skid steers are excellent on firm surfaces and tight jobsites. Compact track loaders generally provide better traction and flotation on softer or uneven ground.";
+function getMachGuideResponse(userInput) {
 
-  }
+  const input = userInput.toLowerCase();
 
-  if(/delivery|deliver/.test(t)){
+  let response = "I'm not sure about that. Try asking about specific equipment types (excavator, skid steer, etc.), ground conditions, access width, or rental costs.";
 
-    return "Equipment delivery pricing depends heavily on distance, machine size and supplier. MachRelay's goal is to include delivery requirements in your request so you can compare the full rental cost.";
+  for (const [keyword, content] of Object.entries(machGuideKnowledge)) {
 
-  }
+    if (input.includes(keyword)) {
 
-  if(/price|cost|cheap|rate/.test(t)){
+      response = content.response;
 
-    return "Rental prices vary by machine, duration, location, taxes, damage protection and delivery. MachRelay is being built to help you compare the complete offer rather than only the advertised daily rate.";
+      break;
 
-  }
-
-  if(/boom|scissor|lift/.test(t)){
-
-    return "If you mainly need straight vertical access, a scissor lift may work. If you need to reach over obstacles or move horizontally at height, a boom lift is usually more appropriate.";
+    }
 
   }
 
-  return "Tell me the main job, approximate dimensions, surface conditions and any access restrictions. Those details help narrow down the equipment.";
+  return response;
 
 }
 
-function sendChat(){
+document.getElementById('chatBtn').addEventListener('click', function() {
 
-  const text = chatInput.value.trim();
+  const input = document.getElementById('chatInput').value.trim();
 
-  if(!text) return;
+  if (!input) return;
 
-  const userMsg = document.createElement("div");
+  const chatFeed = document.getElementById('chatFeed');
 
-  userMsg.className = "msg user";
+  // User message
 
-  userMsg.textContent = text;
+  const userMsg = document.createElement('div');
+
+  userMsg.className = 'msg user';
+
+  userMsg.textContent = input;
 
   chatFeed.appendChild(userMsg);
 
-  chatInput.value = "";
+  // Bot response
 
-  setTimeout(function(){
+  const response = getMachGuideResponse(input);
 
-    const botMsg = document.createElement("div");
+  setTimeout(() => {
 
-    botMsg.className = "msg bot";
+    const botMsg = document.createElement('div');
 
-    botMsg.textContent = botReply(text);
+    botMsg.className = 'msg bot';
+
+    botMsg.textContent = response;
 
     chatFeed.appendChild(botMsg);
 
     chatFeed.scrollTop = chatFeed.scrollHeight;
 
-  },400);
+  }, 300);
+
+  document.getElementById('chatInput').value = '';
+
+  chatFeed.scrollTop = chatFeed.scrollHeight;
 
 }
 
-function quickAsk(text){
+);
 
-  chatInput.value = text;
+document.getElementById('chatInput').addEventListener('keypress', function(e) {
 
-  sendChat();
-
-}
-
-chatInput.addEventListener("keydown",function(e){
-
-  if(e.key === "Enter"){
+  if (e.key === 'Enter') {
 
     e.preventDefault();
 
-    sendChat();
+    document.getElementById('chatBtn').click();
 
   }
-
-});
-
-function openGuide(){
-
-  document.getElementById("chatCard")
-
-    .scrollIntoView({behavior:"smooth",block:"center"});
-
-  setTimeout(()=>chatInput.focus(),600);
-
-}
-
-</script>
-
-</body>
-
-</html><!DOCTYPE html>
-
-<html lang="en">
-
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width,initial-scale=1">
-
-<title>MachRelay | Tell us the job. We'll find the machine.</title>
-
-<meta name="description" content="MachRelay connects contractors with the right heavy equipment rental suppliers.">
-
-<style>
-
-*{box-sizing:border-box}
-
-html{scroll-behavior:smooth}
-
-body{margin:0;background:#101416;color:#fff;font-family:Arial,Helvetica,sans-serif}
-
-a{text-decoration:none;color:inherit}
-
-header{position:sticky;top:0;z-index:10;background:rgba(12,15,17,.96);border-bottom:1px solid #303538;padding:16px 6%;display:flex;align-items:center;justify-content:space-between}
-
-.logo{font-weight:900;font-size:24px;letter-spacing:1px}
-
-.logo span{color:#ffc21c}
-
-nav{display:flex;gap:20px;font-size:14px}
-
-.btn{background:#ffc21c;color:#111;border:0;border-radius:8px;padding:14px 20px;font-weight:800;cursor:pointer}
-
-.btn-dark{background:#202629;color:#fff;border:1px solid #555}
-
-.hero{min-height:620px;padding:90px 7%;display:flex;align-items:center;background:
-
-linear-gradient(90deg,rgba(8,10,11,.97),rgba(8,10,11,.76),rgba(8,10,11,.9)),
-
-radial-gradient(circle at 80% 40%,#604918,#121719 45%)}
-
-.hero-content{max-width:760px}
-
-.tag{color:#ffc21c;font-weight:800;letter-spacing:2px;font-size:13px}
-
-h1{font-size:clamp(48px,8vw,88px);line-height:.95;margin:18px 0;text-transform:uppercase}
-
-.yellow{color:#ffc21c}
-
-.hero p{font-size:20px;line-height:1.55;color:#d6d9da;max-width:660px}
-
-.actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap}
-
-.finder{background:#f4f5f5;color:#161a1c;padding:70px 7%}
-
-.finder-wrap{max-width:1000px;margin:auto}
-
-.section-title{text-align:center;margin-bottom:35px}
-
-.section-title h2{font-size:42px;margin:0}
-
-.section-title p{color:#61686b;font-size:17px}
-
-.card{background:white;border-radius:14px;padding:28px;box-shadow:0 8px 30px rgba(0,0,0,.1)}
-
-label{display:block;font-weight:800;margin:14px 0 7px}
-
-textarea,input,select{width:100%;padding:14px;border:1px solid #ccd0d2;border-radius:7px;font-size:16px;background:#fff}
-
-textarea{min-height:120px;resize:vertical}
-
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-
-.full{grid-column:1/-1}
-
-.result{margin-top:20px;padding:22px;background:#14191b;color:#fff;border-radius:10px;display:none}
-
-.result h3{color:#ffc21c;font-size:27px;margin:6px 0}
-
-.ai{display:inline-block;background:#ffc21c;color:#111;padding:6px 10px;border-radius:5px;font-weight:900;font-size:12px}
-
-.success{display:none;margin-top:15px;background:#eaf8ec;color:#175d27;padding:15px;border-radius:8px;font-weight:700}
-
-.categories{padding:70px 7%}
-
-.categories h2,.how h2,.suppliers h2{font-size:40px;text-align:center}
-
-.machine-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:15px;max-width:1200px;margin:35px auto}
-
-.machine{background:#1c2225;border:1px solid #30383b;border-radius:10px;padding:24px 16px;min-height:150px}
-
-.machine strong{font-size:20px}
-
-.machine span{display:block;font-size:38px;margin-bottom:16px}
-
-.how{background:#171c1f;padding:70px 7%}
-
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1150px;margin:40px auto}
-
-.step{padding:25px;border-top:3px solid #ffc21c;background:#202629}
-
-.number{font-size:32px;font-weight:900;color:#ffc21c}
-
-.suppliers{padding:70px 7%;text-align:center}
-
-.supplier-box{max-width:850px;margin:35px auto;background:#ffc21c;color:#111;padding:40px;border-radius:14px}
-
-.supplier-box h3{font-size:34px;margin:0 0 15px}
-
-footer{background:#090c0d;border-top:1px solid #333;padding:35px 7%;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:#abb0b2}
-
-footer strong{color:#fff}
-
-@media(max-width:800px){
-
-nav{display:none}
-
-.hero{min-height:560px;padding:65px 6%}
-
-.hero p{font-size:17px}
-
-.grid{grid-template-columns:1fr}
-
-.full{grid-column:auto}
-
-.machine-grid{grid-template-columns:1fr 1fr}
-
-.steps{grid-template-columns:1fr}
-
-.finder,.categories,.how,.suppliers{padding:55px 5%}
-
-.section-title h2,.categories h2,.how h2,.suppliers h2{font-size:34px}
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<header>
-
-<a class="logo" href="#">MACH<span>RELAY</span></a>
-
-<nav>
-
-<a href="#how">How It Works</a>
-
-<a href="#equipment">Equipment</a>
-
-<a href="#suppliers">For Suppliers</a>
-
-</nav>
-
-<a class="btn" href="#finder">Find Equipment</a>
-
-</header>
-
-<section class="hero">
-
-<div class="hero-content">
-
-<div class="tag">AI-POWERED EQUIPMENT MATCHING</div>
-
-<h1>ANY JOB.<br><span class="yellow">THE RIGHT MACHINE.</span><br>FASTER.</h1>
-
-<p>Describe your project. MachRelay helps identify the equipment you need and connects you with rental suppliers serving your area.</p>
-
-<div class="actions">
-
-<a href="#finder" class="btn">Find Equipment</a>
-
-<a href="#suppliers" class="btn btn-dark">List Your Equipment</a>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="finder" id="finder">
-
-<div class="finder-wrap">
-
-<div class="section-title">
-
-<h2>Tell us the job.</h2>
-
-<p>You don't need to know which machine you need. Describe the work and MachRelay will help narrow it down.</p>
-
-</div>
-
-<div class="card">
-
-<form id="jobForm">
-
-<div class="grid">
-
-<div class="full">
-
-<label>What are you trying to get done?</label>
-
-<textarea id="job" required placeholder="Example: I need to dig a 100-foot trench behind a house and the gate is only 7 feet wide."></textarea>
-
-</div>
-
-<div>
-
-<label>Job ZIP code</label>
-
-<input id="zip" inputmode="numeric" required maxlength="5" placeholder="21044">
-
-</div>
-
-<div>
-
-<label>Rental duration</label>
-
-<select id="duration">
-
-<option>1 day</option>
-
-<option>2–3 days</option>
-
-<option>1 week</option>
-
-<option>2 weeks</option>
-
-<option>1 month+</option>
-
-</select>
-
-</div>
-
-<div>
-
-<label>When do you need it?</label>
-
-<input id="date" type="date" required>
-
-</div>
-
-<div>
-
-<label>Delivery needed?</label>
-
-<select id="delivery">
-
-<option>Yes, deliver it</option>
-
-<option>No, I'll pick it up</option>
-
-<option>Not sure</option>
-
-</select>
-
-</div>
-
-<div class="full">
-
-<button class="btn" type="submit">Find My Equipment →</button>
-
-</div>
-
-</div>
-
-</form>
-
-<div class="result" id="result">
-
-<span class="ai">MACHRELAY AI</span>
-
-<h3 id="machine"></h3>
-
-<p id="reason"></p>
-
-<button class="btn" id="quoteBtn">Request Local Quotes</button>
-
-</div>
-
-<div class="success" id="success">
-
-✓ Your demo rental request has been created. The production version will route this request to matching local suppliers.
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="categories" id="equipment">
-
-<h2>Popular Equipment</h2>
-
-<div class="machine-grid">
-
-<div class="machine"><span>🚜</span><strong>Mini Excavators</strong></div>
-
-<div class="machine"><span>🏗️</span><strong>Skid Steers / CTLs</strong></div>
-
-<div class="machine"><span>⬆️</span><strong>Boom Lifts</strong></div>
-
-<div class="machine"><span>🔧</span><strong>Scissor Lifts</strong></div>
-
-<div class="machine"><span>📦</span><strong>Telehandlers</strong></div>
-
-</div>
-
-</section>
-
-<section class="how" id="how">
-
-<h2>How <span class="yellow">MachRelay</span> Works</h2>
-
-<div class="steps">
-
-<div class="step"><div class="number">01</div><h3>Tell Us Your Job</h3><p>Describe what you're trying to accomplish in plain language.</p></div>
-
-<div class="step"><div class="number">02</div><h3>We Find the Machine</h3><p>MachRelay identifies equipment likely to fit your project.</p></div>
-
-<div class="step"><div class="number">03</div><h3>We Connect You</h3><p>Your request can be matched with qualified rental suppliers.</p></div>
-
-<div class="step"><div class="number">04</div><h3>You Get to Work</h3><p>Compare options, secure the rental and get the job moving.</p></div>
-
-</div>
-
-</section>
-
-<section class="suppliers" id="suppliers">
-
-<h2>Own rental equipment?</h2>
-
-<div class="supplier-box">
-
-<h3>Put more machines to work.</h3>
-
-<p>MachRelay is building a network connecting rental suppliers with contractors actively searching for equipment.</p>
-
-<button class="btn btn-dark" onclick="alert('Supplier onboarding is coming next.')">Join the Supplier Network</button>
-
-</div>
-
-</section>
-
-<footer>
-
-<div><strong>MACHRELAY</strong><br>Tell us the job. We'll find the machine.</div>
-
-<div>© 2026 MachRelay. Early-access MVP.</div>
-
-</footer>
-
-<script>
-
-const form=document.getElementById('jobForm');
-
-const result=document.getElementById('result');
-
-const machine=document.getElementById('machine');
-
-const reason=document.getElementById('reason');
-
-const success=document.getElementById('success');
-
-const tomorrow=new Date();
-
-tomorrow.setDate(tomorrow.getDate()+1);
-
-document.getElementById('date').value=tomorrow.toISOString().split('T')[0];
-
-function recommend(text){
-
-text=text.toLowerCase();
-
-if(/trench|dig|excavat|foundation|stump|sewer|drain|hole/.test(text))
-
-return ["Mini Excavator","A mini excavator is a strong match for digging and trenching, particularly where jobsite access is limited."];
-
-if(/grade|grading|dirt|debris|mulch|gravel|landscap|load|cleanup/.test(text))
-
-return ["Skid Steer / Compact Track Loader","A skid steer or compact track loader is highly versatile for grading, material movement and site cleanup."];
-
-if(/roof|tree|height|sign|reach|exterior/.test(text))
-
-return ["Boom Lift","A boom lift is likely the right fit when the job requires both height and horizontal reach."];
-
-if(/ceiling|warehouse|indoor|sprinkler|duct|vertical/.test(text))
-
-return ["Scissor Lift","A scissor lift provides a stable platform for straight vertical access, particularly for indoor work."];
-
-if(/pallet|lumber|framing|masonry|fork|material/.test(text))
-
-return ["Telehandler","A telehandler is designed for lifting and positioning heavy materials across construction jobsites."];
-
-return ["Skid Steer / Compact Track Loader","Based on the information provided, this is a preliminary match. MachRelay would ask additional questions before sending the request to a supplier."];
-
-}
-
-form.addEventListener('submit',function(e){
-
-e.preventDefault();
-
-const recommendation=recommend(document.getElementById('job').value);
-
-machine.textContent=recommendation[0];
-
-reason.textContent=recommendation[1];
-
-result.style.display='block';
-
-success.style.display='none';
-
-result.scrollIntoView({behavior:'smooth',block:'center'});
-
-});
-
-document.getElementById('quoteBtn').addEventListener('click',function(){
-
-success.style.display='block';
 
 });
 
