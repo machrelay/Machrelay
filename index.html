@@ -37,6 +37,7 @@ header{
   padding:15px 6%;
   background:rgba(10,13,15,.96);
   border-bottom:1px solid #2c3336;
+  -webkit-backdrop-filter:blur(12px);
   backdrop-filter:blur(12px);
 }
 .logo{
@@ -563,12 +564,12 @@ footer strong{color:white}
     <div class="card">
       <h3>What's your project?</h3>
       <div class="form-grid">
-        <textarea id="jobDesc" placeholder="e.g., 'We need to dig a 15-foot deep foundation for a commercial building' or 'Landscaping project - need to move dirt and plants'"></textarea>
+        <textarea id="jobDesc" class="full" placeholder="e.g., 'We need to dig a 15-foot deep foundation for a commercial building' or 'Landscaping project - need to move dirt and plants'"></textarea>
       </div>
       <div id="dynamicQuestions" style="margin-top:16px"></div>
       <div class="form-actions">
-        <button class="btn-primary" onclick="analyzeMachMatch()">Find My Machine</button>
-        <button class="btn-secondary" onclick="resetForm()">Clear</button>
+        <button class="btn-primary" id="findMachineBtn" type="button">Find My Machine</button>
+        <button class="btn-secondary" id="clearFormBtn" type="button">Clear</button>
       </div>
     </div>
     <div class="chat-card">
@@ -582,8 +583,8 @@ footer strong{color:white}
       <div class="chat-feed" id="chatFeed"></div>
       <div id="quickReplyButtons" class="quick-buttons"></div>
       <div class="chat-entry">
-        <input type="text" id="guideInput" placeholder="Ask a question about equipment..." onkeypress="if(event.key==='Enter') sendGuideMessage()">
-        <button onclick="sendGuideMessage()">→</button>
+        <input type="text" id="guideInput" placeholder="Ask a question about equipment...">
+        <button id="guideSendBtn" type="button">→</button>
       </div>
     </div>
   </div>
@@ -715,7 +716,7 @@ const equipmentDatabase={
   skidSteer:{
     name:'Skid Steer Loader',
     description:'Compact, multi-purpose loader perfect for landscape work, material handling, and cleanup on small to mid-size jobs.',
-    whenToUse:'Landscaping, site cleanup, loading trucks, working in tight spaces where bigger equipment can't fit',
+    whenToUse:'Landscaping, site cleanup, loading trucks, working in tight spaces where bigger equipment can\'t fit',
     cautions:'Lower load capacity than wheel loaders, can cause ground compaction on soft terrain',
     alternatives:[
       {name:'Wheel Loader',reason:'If you need higher capacity and faster operation on open terrain'},
@@ -775,11 +776,14 @@ function detectEquipmentType(jobDesc){
   const desc=jobDesc.toLowerCase();
   let bestMatch='excavator';
   let bestScore=0;
-  for(const[type,keywords]of Object.entries(jobKeywords)){
+  const types=Object.keys(jobKeywords);
+  for(let i=0;i<types.length;i++){
+    const type=types[i];
+    const keywords=jobKeywords[type];
     let score=0;
-    keywords.forEach(kw=>{
-      if(desc.includes(kw))score+=1;
-    });
+    for(let j=0;j<keywords.length;j++){
+      if(desc.indexOf(keywords[j])!==-1)score+=1;
+    }
     if(score>bestScore){
       bestScore=score;
       bestMatch=type;
@@ -846,23 +850,31 @@ function generateDynamicQuestions(equipmentType){
       <textarea id="notes" placeholder="e.g., tight deadline, multiple attachments needed, etc." style="min-height:80px;"></textarea>
     </div>
   `;
-  document.getElementById('dynamicQuestions').innerHTML=questionsHTML+extraQuestions;
+  const container=document.getElementById('dynamicQuestions');
+  if(container)container.innerHTML=questionsHTML+extraQuestions;
 }
 function analyzeMachMatch(){
-  const jobDesc=document.getElementById('jobDesc').value.trim();
+  const jobDescEl=document.getElementById('jobDesc');
+  const jobDesc=jobDescEl?jobDescEl.value.trim():'';
   if(!jobDesc){
     addChatMessage('bot','Please describe your job so I can help you find the right machine.');
     return;
   }
   machMatchState.jobDescription=jobDesc;
-  const detected=detectEquipmentType(jobDesc);
+  let detected='excavator';
+  try{detected=detectEquipmentType(jobDesc);}catch(e){detected='excavator';}
+  if(!equipmentDatabase[detected])detected='excavator';
   const equipInfo=equipmentDatabase[detected];
   machMatchState.detectedType=detected;
-  generateDynamicQuestions(detected);
-  addChatMessage('bot',`I think you might need a <strong>${equipInfo.name}</strong>. Let me ask a few more details to make sure...`);
-  generateRecommendation();
+  try{
+    generateDynamicQuestions(detected);
+  }catch(e){}
+  try{
+    addChatMessage('bot',`I think you might need a <strong>${equipInfo.name}</strong>. Let me ask a few more details to make sure...`);
+    generateRecommendation();
+  }catch(e){}
   setTimeout(()=>{
-    scrollToRecommendation();
+    try{scrollToRecommendation();}catch(e){}
   },300);
 }
 function generateRecommendation(){
@@ -923,7 +935,9 @@ function resetForm(){
 }
 function scrollToRecommendation(){
   const rec=document.getElementById('recommendation');
-  rec.scrollIntoView({behavior:'smooth',block:'nearest'});
+  if(!rec||!rec.scrollIntoView)return;
+  try{rec.scrollIntoView({behavior:'smooth',block:'nearest'});}
+  catch(e){rec.scrollIntoView(false);}
 }
 function addChatMessage(role,message){
   const feed=document.getElementById('chatFeed');
@@ -972,7 +986,7 @@ function handleQuickReply(action){
       break;
     case 'askCosts':
       addChatMessage('user','What are typical rental costs?');
-      addChatMessage('bot','Pricing varies widely by equipment type, location, duration, and supplier. I don't show specific pricing, but when you connect with local suppliers, ask about daily, weekly, and monthly rates to compare options.');
+      addChatMessage('bot','Pricing varies widely by equipment type, location, duration, and supplier. I don\'t show specific pricing, but when you connect with local suppliers, ask about daily, weekly, and monthly rates to compare options.');
       break;
   }
 }
@@ -993,14 +1007,32 @@ function sendGuideMessage(){
   }else if(lowerText.includes('how long')||lowerText.includes('duration')||lowerText.includes('daily')){
     response='Rental terms vary. Many companies offer daily, weekly, and monthly rates. Longer terms are usually cheaper per day. Discuss your project timeline with the supplier to find the best rate.';
   }else if(lowerText.includes('maintenance')||lowerText.includes('fuel')){
-    response='That depends on the rental agreement. Some suppliers handle fuel and maintenance; others pass that to you. Always ask: "What's included?" and "Who pays for fuel and regular maintenance?"';
+    response='That depends on the rental agreement. Some suppliers handle fuel and maintenance; others pass that to you. Always ask: "What\'s included?" and "Who pays for fuel and regular maintenance?"';
   }else if(lowerText.includes('difference')||lowerText.includes('vs')){
-    response='Different machines handle different jobs. For example: a skid steer is compact and versatile in tight spaces, while a wheel loader moves high volumes fast. Tell me your specific job and I'll help compare.';
+    response='Different machines handle different jobs. For example: a skid steer is compact and versatile in tight spaces, while a wheel loader moves high volumes fast. Tell me your specific job and I\'ll help compare.';
   }else{
-    response='That's a great question! Here's what I'd suggest: <strong>1)</strong> Describe the specific part of your project that's confusing. <strong>2)</strong> Tell me the constraints (space, digging depth, timeline). <strong>3)</strong> I'll guide you from there.';
+    response='That\'s a great question! Here\'s what I\'d suggest: <strong>1)</strong> Describe the specific part of your project that\'s confusing. <strong>2)</strong> Tell me the constraints (space, digging depth, timeline). <strong>3)</strong> I\'ll guide you from there.';
   }
   addChatMessage('bot',response);
 }
+(function bindMachMatchControls(){
+  function bind(id,type,handler){
+    const el=document.getElementById(id);
+    if(!el)return;
+    if(el.addEventListener)el.addEventListener(type,handler,false);
+    else el['on'+type]=handler;
+  }
+  bind('findMachineBtn','click',function(){analyzeMachMatch();});
+  bind('clearFormBtn','click',function(){resetForm();});
+  bind('guideSendBtn','click',function(){sendGuideMessage();});
+  bind('guideInput','keydown',function(ev){
+    const key=ev.key||ev.keyCode;
+    if(key==='Enter'||key===13){
+      if(ev.preventDefault)ev.preventDefault();
+      sendGuideMessage();
+    }
+  });
+})();
 </script>
 </body>
 </html>
