@@ -10,6 +10,1656 @@
 
 <title>MachRelay | Tell us the job. We'll find the machine.</title>
 
+<meta name="description" content="MachRelay helps contractors find the right heavy equipment rental faster.">
+
+<style>
+
+:root{
+
+  --yellow:#ffc21c;
+
+  --bg:#0d1113;
+
+  --panel:#171d20;
+
+  --panel2:#20272a;
+
+  --text:#ffffff;
+
+  --muted:#aeb6ba;
+
+  --light:#f5f6f6;
+
+  --green:#66d18f;
+
+}
+
+*{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
+
+body{
+
+  margin:0;
+
+  background:var(--bg);
+
+  color:var(--text);
+
+  font-family:Arial,Helvetica,sans-serif;
+
+}
+
+button,input,textarea,select{font:inherit}
+
+a{text-decoration:none;color:inherit}
+
+button{cursor:pointer}
+
+header{
+
+  position:sticky;
+
+  top:0;
+
+  z-index:50;
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  padding:15px 6%;
+
+  background:rgba(10,13,15,.96);
+
+  border-bottom:1px solid #2c3336;
+
+  backdrop-filter:blur(12px);
+
+}
+
+.logo{
+
+  font-size:25px;
+
+  font-weight:900;
+
+  letter-spacing:1px;
+
+}
+
+.logo span{color:var(--yellow)}
+
+nav{
+
+  display:flex;
+
+  gap:22px;
+
+  font-size:14px;
+
+  color:#dfe3e5;
+
+}
+
+.btn{
+
+  border:0;
+
+  border-radius:9px;
+
+  padding:14px 20px;
+
+  background:var(--yellow);
+
+  color:#111;
+
+  font-weight:900;
+
+}
+
+.btn-dark{
+
+  background:#222a2d;
+
+  color:#fff;
+
+  border:1px solid #4b555a;
+
+}
+
+.btn-small{padding:11px 15px;font-size:14px}
+
+.hero{
+
+  min-height:660px;
+
+  padding:90px 7%;
+
+  display:flex;
+
+  align-items:center;
+
+  background:
+
+    linear-gradient(90deg,rgba(5,8,9,.98),rgba(5,8,9,.76),rgba(5,8,9,.88)),
+
+    radial-gradient(circle at 80% 40%,#604913,#14191b 48%);
+
+}
+
+.hero-inner{max-width:850px}
+
+.eyebrow{
+
+  color:var(--yellow);
+
+  font-weight:900;
+
+  letter-spacing:2px;
+
+  font-size:13px;
+
+}
+
+h1{
+
+  font-size:clamp(48px,8vw,92px);
+
+  line-height:.94;
+
+  margin:18px 0 24px;
+
+  text-transform:uppercase;
+
+}
+
+.yellow{color:var(--yellow)}
+
+.hero p{
+
+  max-width:720px;
+
+  font-size:20px;
+
+  line-height:1.55;
+
+  color:#d7dcde;
+
+}
+
+.hero-actions{
+
+  display:flex;
+
+  gap:12px;
+
+  flex-wrap:wrap;
+
+  margin-top:28px;
+
+}
+
+.trust-strip{
+
+  margin-top:40px;
+
+  display:flex;
+
+  gap:24px;
+
+  flex-wrap:wrap;
+
+  color:#d8dddf;
+
+  font-size:14px;
+
+}
+
+.trust-strip b{color:#fff}
+
+.ai-section{
+
+  background:var(--light);
+
+  color:#15191b;
+
+  padding:70px 6%;
+
+}
+
+.section-head{
+
+  max-width:850px;
+
+  margin:0 auto 30px;
+
+  text-align:center;
+
+}
+
+.section-head h2{
+
+  font-size:clamp(34px,5vw,48px);
+
+  margin:0 0 10px;
+
+}
+
+.section-head p{
+
+  color:#616a6e;
+
+  line-height:1.5;
+
+  font-size:17px;
+
+}
+
+.ai-shell{
+
+  max-width:1050px;
+
+  margin:auto;
+
+  display:grid;
+
+  grid-template-columns:1.2fr .8fr;
+
+  gap:20px;
+
+}
+
+.card{
+
+  background:#fff;
+
+  border-radius:15px;
+
+  padding:25px;
+
+  box-shadow:0 10px 35px rgba(0,0,0,.08);
+
+}
+
+.card h3{margin-top:0}
+
+label{
+
+  display:block;
+
+  margin:13px 0 7px;
+
+  font-weight:800;
+
+}
+
+textarea,input,select{
+
+  width:100%;
+
+  padding:14px;
+
+  border-radius:8px;
+
+  border:1px solid #cbd0d2;
+
+  background:#fff;
+
+  font-size:16px;
+
+}
+
+textarea{min-height:120px;resize:vertical}
+
+.form-grid{
+
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:14px;
+
+}
+
+.full{grid-column:1/-1}
+
+.progress{
+
+  display:flex;
+
+  gap:8px;
+
+  margin-bottom:22px;
+
+}
+
+.progress div{
+
+  height:5px;
+
+  flex:1;
+
+  border-radius:20px;
+
+  background:#dfe3e4;
+
+}
+
+.progress .active{background:var(--yellow)}
+
+.ai-badge{
+
+  display:inline-flex;
+
+  align-items:center;
+
+  gap:7px;
+
+  background:#11181b;
+
+  color:#fff;
+
+  padding:7px 10px;
+
+  border-radius:7px;
+
+  font-size:12px;
+
+  font-weight:900;
+
+}
+
+.ai-dot{
+
+  width:8px;
+
+  height:8px;
+
+  border-radius:50%;
+
+  background:var(--green);
+
+}
+
+.recommendation{
+
+  display:none;
+
+  margin-top:18px;
+
+  padding:20px;
+
+  border-radius:12px;
+
+  background:#121719;
+
+  color:white;
+
+}
+
+.recommendation h3{
+
+  margin:8px 0;
+
+  color:var(--yellow);
+
+  font-size:28px;
+
+}
+
+.recommendation p{color:#cdd2d4;line-height:1.5}
+
+.match-score{
+
+  display:inline-block;
+
+  margin-top:6px;
+
+  color:#9ff0ba;
+
+  font-weight:800;
+
+}
+
+.quote-box{
+
+  margin-top:15px;
+
+  display:none;
+
+  background:#eaf8ef;
+
+  color:#17612d;
+
+  padding:14px;
+
+  border-radius:9px;
+
+  font-weight:800;
+
+}
+
+.chat-card{
+
+  display:flex;
+
+  flex-direction:column;
+
+  min-height:525px;
+
+}
+
+.chat-header{
+
+  display:flex;
+
+  gap:12px;
+
+  align-items:center;
+
+  padding-bottom:16px;
+
+  border-bottom:1px solid #e1e4e5;
+
+}
+
+.bot-icon{
+
+  width:44px;
+
+  height:44px;
+
+  display:grid;
+
+  place-items:center;
+
+  border-radius:10px;
+
+  background:#111719;
+
+  color:var(--yellow);
+
+  font-size:23px;
+
+}
+
+.chat-feed{
+
+  flex:1;
+
+  padding:18px 0;
+
+  overflow:auto;
+
+}
+
+.msg{
+
+  max-width:88%;
+
+  padding:11px 13px;
+
+  border-radius:11px;
+
+  margin:8px 0;
+
+  line-height:1.45;
+
+  font-size:14px;
+
+}
+
+.bot{
+
+  background:#eef1f2;
+
+  color:#202628;
+
+}
+
+.user{
+
+  margin-left:auto;
+
+  background:#11181b;
+
+  color:#fff;
+
+}
+
+.quick-buttons{
+
+  display:flex;
+
+  flex-wrap:wrap;
+
+  gap:7px;
+
+  margin-top:10px;
+
+}
+
+.quick-buttons button{
+
+  border:1px solid #ccd1d3;
+
+  background:#fff;
+
+  border-radius:999px;
+
+  padding:8px 11px;
+
+  font-size:12px;
+
+}
+
+.chat-entry{
+
+  display:flex;
+
+  gap:8px;
+
+}
+
+.chat-entry input{flex:1}
+
+.chat-entry button{width:50px}
+
+.why{
+
+  padding:70px 6%;
+
+}
+
+.why h2{text-align:center;font-size:42px}
+
+.why-grid{
+
+  max-width:1100px;
+
+  margin:35px auto 0;
+
+  display:grid;
+
+  grid-template-columns:repeat(3,1fr);
+
+  gap:18px;
+
+}
+
+.why-card{
+
+  background:var(--panel);
+
+  padding:25px;
+
+  border-radius:12px;
+
+  border:1px solid #30383b;
+
+}
+
+.why-card .icon{
+
+  font-size:30px;
+
+  margin-bottom:14px;
+
+}
+
+.why-card h3{font-size:21px}
+
+.why-card p{color:var(--muted);line-height:1.5}
+
+.compare{
+
+  background:#171c1f;
+
+  padding:70px 6%;
+
+}
+
+.compare h2{text-align:center;font-size:42px}
+
+.compare-wrap{
+
+  max-width:950px;
+
+  margin:35px auto;
+
+  background:#202629;
+
+  border-radius:14px;
+
+  overflow:hidden;
+
+}
+
+.compare-row{
+
+  display:grid;
+
+  grid-template-columns:1.2fr 1fr 1fr;
+
+  padding:16px 20px;
+
+  border-bottom:1px solid #343c3f;
+
+}
+
+.compare-row strong{color:var(--yellow)}
+
+.compare-row.header{
+
+  font-weight:900;
+
+  background:#111719;
+
+}
+
+.categories{
+
+  padding:70px 6%;
+
+  background:#f4f5f5;
+
+  color:#14191b;
+
+}
+
+.categories h2{text-align:center;font-size:42px}
+
+.machine-grid{
+
+  max-width:1150px;
+
+  margin:35px auto;
+
+  display:grid;
+
+  grid-template-columns:repeat(5,1fr);
+
+  gap:14px;
+
+}
+
+.machine{
+
+  min-height:150px;
+
+  background:#fff;
+
+  border-radius:11px;
+
+  padding:20px;
+
+  box-shadow:0 6px 20px rgba(0,0,0,.07);
+
+}
+
+.machine span{
+
+  display:block;
+
+  font-size:34px;
+
+  margin-bottom:15px;
+
+}
+
+.machine strong{font-size:18px}
+
+.machine p{
+
+  color:#697174;
+
+  font-size:13px;
+
+}
+
+.supplier{
+
+  padding:70px 6%;
+
+  text-align:center;
+
+}
+
+.supplier-box{
+
+  max-width:850px;
+
+  margin:auto;
+
+  background:var(--yellow);
+
+  color:#111;
+
+  padding:40px;
+
+  border-radius:15px;
+
+}
+
+.supplier-box h2{
+
+  font-size:38px;
+
+  margin:0 0 15px;
+
+}
+
+footer{
+
+  background:#080b0c;
+
+  border-top:1px solid #2e3437;
+
+  padding:35px 6%;
+
+  display:flex;
+
+  justify-content:space-between;
+
+  gap:20px;
+
+  flex-wrap:wrap;
+
+  color:#aab1b4;
+
+}
+
+footer strong{color:white}
+
+.floating-ai{
+
+  position:fixed;
+
+  right:18px;
+
+  bottom:18px;
+
+  z-index:80;
+
+}
+
+.floating-ai button{
+
+  border:0;
+
+  background:var(--yellow);
+
+  color:#111;
+
+  border-radius:999px;
+
+  padding:14px 17px;
+
+  font-weight:900;
+
+  box-shadow:0 8px 30px rgba(0,0,0,.3);
+
+}
+
+@media(max-width:850px){
+
+  nav{display:none}
+
+  .hero{min-height:590px;padding:70px 6%}
+
+  .hero p{font-size:17px}
+
+  .ai-shell{grid-template-columns:1fr}
+
+  .form-grid{grid-template-columns:1fr}
+
+  .full{grid-column:auto}
+
+  .why-grid{grid-template-columns:1fr}
+
+  .machine-grid{grid-template-columns:1fr 1fr}
+
+  .compare-row{grid-template-columns:1.3fr .8fr .8fr;font-size:13px}
+
+  .categories,.why,.compare,.supplier,.ai-section{padding:55px 5%}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+  <a class="logo" href="#">MACH<span>RELAY</span></a>
+
+  <nav>
+
+    <a href="#finder">Find Equipment</a>
+
+    <a href="#why">Why MachRelay</a>
+
+    <a href="#equipment">Equipment</a>
+
+    <a href="#suppliers">For Suppliers</a>
+
+  </nav>
+
+  <a class="btn btn-small" href="#finder">Start a Search</a>
+
+</header>
+
+<section class="hero">
+
+  <div class="hero-inner">
+
+    <div class="eyebrow">SMARTER HEAVY-EQUIPMENT RENTAL</div>
+
+    <h1>
+
+      Tell us the job.<br>
+
+      <span class="yellow">We'll find the machine.</span>
+
+    </h1>
+
+    <p>
+
+      Stop calling rental yards one by one. Describe your project and
+
+      MachRelay helps identify the right machine, organize your rental request,
+
+      and connect you with suppliers that can serve your job.
+
+    </p>
+
+    <div class="hero-actions">
+
+      <a class="btn" href="#finder">Find My Equipment →</a>
+
+      <a class="btn btn-dark" href="#suppliers">I'm a Rental Supplier</a>
+
+    </div>
+
+    <div class="trust-strip">
+
+      <div>✓ <b>Job-based matching</b></div>
+
+      <div>✓ <b>Local supplier routing</b></div>
+
+      <div>✓ <b>One request, multiple options</b></div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="ai-section" id="finder">
+
+  <div class="section-head">
+
+    <h2>Your equipment search starts with the job.</h2>
+
+    <p>
+
+      Don't know exactly what machine you need? That's the point.
+
+      MachRelay starts with what you're trying to accomplish.
+
+    </p>
+
+  </div>
+
+  <div class="ai-shell">
+
+    <div class="card">
+
+      <div class="progress">
+
+        <div class="active"></div>
+
+        <div class="active"></div>
+
+        <div></div>
+
+      </div>
+
+      <span class="ai-badge">
+
+        <span class="ai-dot"></span>
+
+        MACHMATCH AI
+
+      </span>
+
+      <h3>Describe your project</h3>
+
+      <form id="jobForm">
+
+        <div class="form-grid">
+
+          <div class="full">
+
+            <label>What are you trying to get done?</label>
+
+            <textarea
+
+              id="job"
+
+              required
+
+              placeholder="Example: I need to dig a 100-foot trench behind a house. The gate is only 7 feet wide."
+
+            ></textarea>
+
+          </div>
+
+          <div>
+
+            <label>ZIP code</label>
+
+            <input id="zip" maxlength="5" inputmode="numeric" placeholder="21044" required>
+
+          </div>
+
+          <div>
+
+            <label>How long do you need it?</label>
+
+            <select id="duration">
+
+              <option>1 day</option>
+
+              <option>2–3 days</option>
+
+              <option>1 week</option>
+
+              <option>2 weeks</option>
+
+              <option>1 month+</option>
+
+            </select>
+
+          </div>
+
+          <div>
+
+            <label>Start date</label>
+
+            <input id="date" type="date" required>
+
+          </div>
+
+          <div>
+
+            <label>Delivery?</label>
+
+            <select id="delivery">
+
+              <option>Yes, deliver it</option>
+
+              <option>No, I can pick it up</option>
+
+              <option>Not sure yet</option>
+
+            </select>
+
+          </div>
+
+          <div class="full">
+
+            <button class="btn" type="submit">
+
+              Match My Job →
+
+            </button>
+
+          </div>
+
+        </div>
+
+      </form>
+
+      <div class="recommendation" id="recommendation">
+
+        <span class="ai-badge">
+
+          <span class="ai-dot"></span>
+
+          RECOMMENDATION READY
+
+        </span>
+
+        <h3 id="machineName"></h3>
+
+        <p id="machineReason"></p>
+
+        <span class="match-score" id="matchScore"></span>
+
+        <br><br>
+
+        <button class="btn" id="quoteBtn">
+
+          Shop Local Availability →
+
+        </button>
+
+      </div>
+
+      <div class="quote-box" id="quoteBox">
+
+        ✓ Rental request prepared. The production version of MachRelay will
+
+        compare matching suppliers serving your area and route your request.
+
+      </div>
+
+    </div>
+
+    <div class="card chat-card" id="chatCard">
+
+      <div class="chat-header">
+
+        <div class="bot-icon">⚙</div>
+
+        <div>
+
+          <strong>MachGuide</strong><br>
+
+          <small>Equipment Rental Assistant</small>
+
+        </div>
+
+      </div>
+
+      <div class="chat-feed" id="chatFeed">
+
+        <div class="msg bot">
+
+          Hi — I'm MachGuide. Tell me what you're working on and I'll help
+
+          narrow down equipment, access requirements and rental questions.
+
+        </div>
+
+        <div class="quick-buttons">
+
+          <button onclick="quickAsk('What size excavator do I need?')">
+
+            Excavator size
+
+          </button>
+
+          <button onclick="quickAsk('Do I need a skid steer or track loader?')">
+
+            Skid steer vs CTL
+
+          </button>
+
+          <button onclick="quickAsk('How does delivery work?')">
+
+            Delivery
+
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="chat-entry">
+
+        <input id="chatInput" placeholder="Ask MachGuide...">
+
+        <button class="btn" onclick="sendChat()">↑</button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="why" id="why">
+
+  <h2>Why contractors use <span class="yellow">MachRelay</span></h2>
+
+  <div class="why-grid">
+
+    <div class="why-card">
+
+      <div class="icon">⚙️</div>
+
+      <h3>Start with the job</h3>
+
+      <p>
+
+        You don't have to know the exact model or machine class.
+
+        Describe the work and MachRelay helps narrow it down.
+
+      </p>
+
+    </div>
+
+    <div class="why-card">
+
+      <div class="icon">📍</div>
+
+      <h3>Find local options</h3>
+
+      <p>
+
+        Rental requests can be routed based on equipment type,
+
+        service area and delivery requirements.
+
+      </p>
+
+    </div>
+
+    <div class="why-card">
+
+      <div class="icon">⚡</div>
+
+      <h3>Cut the phone calls</h3>
+
+      <p>
+
+        One organized request can eventually reach multiple matching suppliers,
+
+        instead of you repeating the same job details over and over.
+
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="compare">
+
+  <h2>One search instead of five phone calls.</h2>
+
+  <div class="compare-wrap">
+
+    <div class="compare-row header">
+
+      <div></div>
+
+      <div>Traditional Search</div>
+
+      <div>MachRelay</div>
+
+    </div>
+
+    <div class="compare-row">
+
+      <div>Explain your job</div>
+
+      <div>Repeatedly</div>
+
+      <div><strong>Once</strong></div>
+
+    </div>
+
+    <div class="compare-row">
+
+      <div>Equipment guidance</div>
+
+      <div>Varies</div>
+
+      <div><strong>Built in</strong></div>
+
+    </div>
+
+    <div class="compare-row">
+
+      <div>Supplier search</div>
+
+      <div>Manual</div>
+
+      <div><strong>Matched</strong></div>
+
+    </div>
+
+    <div class="compare-row">
+
+      <div>Rental request</div>
+
+      <div>Call each yard</div>
+
+      <div><strong>One request</strong></div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="categories" id="equipment">
+
+  <h2>Popular equipment</h2>
+
+  <div class="machine-grid">
+
+    <div class="machine">
+
+      <span>🚜</span>
+
+      <strong>Mini Excavators</strong>
+
+      <p>Digging, trenching, foundations and tight-access work.</p>
+
+    </div>
+
+    <div class="machine">
+
+      <span>🏗️</span>
+
+      <strong>Skid Steers / CTLs</strong>
+
+      <p>Grading, material handling and site cleanup.</p>
+
+    </div>
+
+    <div class="machine">
+
+      <span>⬆️</span>
+
+      <strong>Boom Lifts</strong>
+
+      <p>Elevated work requiring reach and maneuverability.</p>
+
+    </div>
+
+    <div class="machine">
+
+      <span>🔧</span>
+
+      <strong>Scissor Lifts</strong>
+
+      <p>Stable vertical access for indoor and outdoor work.</p>
+
+    </div>
+
+    <div class="machine">
+
+      <span>📦</span>
+
+      <strong>Telehandlers</strong>
+
+      <p>Moving heavy materials around active jobsites.</p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<section class="supplier" id="suppliers">
+
+  <div class="supplier-box">
+
+    <h2>Own rental equipment?</h2>
+
+    <p>
+
+      MachRelay is building a network that helps rental suppliers put more
+
+      machines to work by connecting them with active local rental demand.
+
+    </p>
+
+    <button
+
+      class="btn btn-dark"
+
+      onclick="alert('Supplier onboarding dashboard is the next production feature.')"
+
+    >
+
+      Join the Supplier Network
+
+    </button>
+
+  </div>
+
+</section>
+
+<footer>
+
+  <div>
+
+    <strong>MACHRELAY</strong><br>
+
+    Tell us the job. We'll find the machine.
+
+  </div>
+
+  <div>
+
+    © 2026 MachRelay
+
+  </div>
+
+</footer>
+
+<div class="floating-ai">
+
+  <button onclick="openGuide()">⚙ Ask MachGuide</button>
+
+</div>
+
+<script>
+
+const jobForm = document.getElementById("jobForm");
+
+const recommendation = document.getElementById("recommendation");
+
+const machineName = document.getElementById("machineName");
+
+const machineReason = document.getElementById("machineReason");
+
+const matchScore = document.getElementById("matchScore");
+
+const quoteBox = document.getElementById("quoteBox");
+
+const chatFeed = document.getElementById("chatFeed");
+
+const chatInput = document.getElementById("chatInput");
+
+const tomorrow = new Date();
+
+tomorrow.setDate(tomorrow.getDate() + 1);
+
+document.getElementById("date").value =
+
+  tomorrow.toISOString().split("T")[0];
+
+function recommendMachine(text){
+
+  text = text.toLowerCase();
+
+  if(/trench|dig|excavat|foundation|stump|sewer|drain|hole|pool/.test(text)){
+
+    return {
+
+      machine:"Mini Excavator",
+
+      score:"94% preliminary job match",
+
+      reason:
+
+      "Your project involves digging or trenching. A mini excavator is often a strong option because it combines digging capability with relatively compact jobsite access."
+
+    };
+
+  }
+
+  if(/grade|grading|dirt|debris|mulch|gravel|landscape|load|cleanup|snow/.test(text)){
+
+    return {
+
+      machine:"Skid Steer / Compact Track Loader",
+
+      score:"91% preliminary job match",
+
+      reason:
+
+      "Your job involves grading, loading or moving material. A skid steer or compact track loader is one of the most versatile machines for this type of work."
+
+    };
+
+  }
+
+  if(/roof|tree|height|sign|reach|exterior|window/.test(text)){
+
+    return {
+
+      machine:"Boom Lift",
+
+      score:"90% preliminary job match",
+
+      reason:
+
+      "Your project appears to require elevated access with horizontal reach. A boom lift is typically better suited to that than a straight vertical platform."
+
+    };
+
+  }
+
+  if(/ceiling|warehouse|indoor|sprinkler|duct|lighting|vertical/.test(text)){
+
+    return {
+
+      machine:"Scissor Lift",
+
+      score:"92% preliminary job match",
+
+      reason:
+
+      "Your project appears to require stable vertical access. A scissor lift is commonly used for overhead work where horizontal reach is not the primary requirement."
+
+    };
+
+  }
+
+  if(/pallet|lumber|framing|masonry|fork|material|truss/.test(text)){
+
+    return {
+
+      machine:"Telehandler",
+
+      score:"89% preliminary job match",
+
+      reason:
+
+      "Your project involves lifting or positioning heavy materials. A telehandler provides forklift-style handling with greater reach across a construction site."
+
+    };
+
+  }
+
+  return {
+
+    machine:"More Job Details Needed",
+
+    score:"MachRelay needs one more detail",
+
+    reason:
+
+    "I can narrow this down further, but the job description does not yet clearly indicate the primary task. Tell MachGuide whether you are digging, lifting, grading, moving material or working at height."
+
+  };
+
+}
+
+jobForm.addEventListener("submit",function(e){
+
+  e.preventDefault();
+
+  const result = recommendMachine(
+
+    document.getElementById("job").value
+
+  );
+
+  machineName.textContent = result.machine;
+
+  machineReason.textContent = result.reason;
+
+  matchScore.textContent = result.score;
+
+  recommendation.style.display = "block";
+
+  quoteBox.style.display = "none";
+
+  recommendation.scrollIntoView({
+
+    behavior:"smooth",
+
+    block:"center"
+
+  });
+
+});
+
+document.getElementById("quoteBtn").addEventListener("click",function(){
+
+  quoteBox.style.display = "block";
+
+  const lead = {
+
+    job:document.getElementById("job").value,
+
+    zip:document.getElementById("zip").value,
+
+    duration:document.getElementById("duration").value,
+
+    date:document.getElementById("date").value,
+
+    delivery:document.getElementById("delivery").value,
+
+    machine:machineName.textContent,
+
+    created:new Date().toISOString()
+
+  };
+
+  localStorage.setItem(
+
+    "machrelay-demo-lead",
+
+    JSON.stringify(lead)
+
+  );
+
+});
+
+function botReply(text){
+
+  const t = text.toLowerCase();
+
+  if(/excavator|dig|trench/.test(t)){
+
+    return "Excavator size depends on digging depth, reach, material and jobsite access. For residential trenching or tight access, a mini excavator is often the place to start.";
+
+  }
+
+  if(/skid|track loader|ctl/.test(t)){
+
+    return "Skid steers are excellent on firm surfaces and tight jobsites. Compact track loaders generally provide better traction and flotation on softer or uneven ground.";
+
+  }
+
+  if(/delivery|deliver/.test(t)){
+
+    return "Equipment delivery pricing depends heavily on distance, machine size and supplier. MachRelay's goal is to include delivery requirements in your request so you can compare the full rental cost.";
+
+  }
+
+  if(/price|cost|cheap|rate/.test(t)){
+
+    return "Rental prices vary by machine, duration, location, taxes, damage protection and delivery. MachRelay is being built to help you compare the complete offer rather than only the advertised daily rate.";
+
+  }
+
+  if(/boom|scissor|lift/.test(t)){
+
+    return "If you mainly need straight vertical access, a scissor lift may work. If you need to reach over obstacles or move horizontally at height, a boom lift is usually more appropriate.";
+
+  }
+
+  return "Tell me the main job, approximate dimensions, surface conditions and any access restrictions. Those details help narrow down the equipment.";
+
+}
+
+function sendChat(){
+
+  const text = chatInput.value.trim();
+
+  if(!text) return;
+
+  const userMsg = document.createElement("div");
+
+  userMsg.className = "msg user";
+
+  userMsg.textContent = text;
+
+  chatFeed.appendChild(userMsg);
+
+  chatInput.value = "";
+
+  setTimeout(function(){
+
+    const botMsg = document.createElement("div");
+
+    botMsg.className = "msg bot";
+
+    botMsg.textContent = botReply(text);
+
+    chatFeed.appendChild(botMsg);
+
+    chatFeed.scrollTop = chatFeed.scrollHeight;
+
+  },400);
+
+}
+
+function quickAsk(text){
+
+  chatInput.value = text;
+
+  sendChat();
+
+}
+
+chatInput.addEventListener("keydown",function(e){
+
+  if(e.key === "Enter"){
+
+    e.preventDefault();
+
+    sendChat();
+
+  }
+
+});
+
+function openGuide(){
+
+  document.getElementById("chatCard")
+
+    .scrollIntoView({behavior:"smooth",block:"center"});
+
+  setTimeout(()=>chatInput.focus(),600);
+
+}
+
+</script>
+
+</body>
+
+</html><!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>MachRelay | Tell us the job. We'll find the machine.</title>
+
 <meta name="description" content="MachRelay connects contractors with the right heavy equipment rental suppliers.">
 
 <style>
