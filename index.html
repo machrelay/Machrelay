@@ -860,6 +860,7 @@ function analyzeMachMatch(){
   machMatchState.detectedType=detected;
   generateDynamicQuestions(detected);
   addChatMessage('bot',`I think you might need a <strong>${equipInfo.name}</strong>. Let me ask a few more details to make sure...`);
+  generateRecommendation();
   setTimeout(()=>{
     scrollToRecommendation();
   },300);
@@ -909,7 +910,7 @@ function initiateRentalRequest(){
     addChatMessage('bot','Can you share your ZIP code so I can find suppliers near you?');
     return;
   }
-  addChatMessage('bot',`Great! I'm preparing to connect you with rental suppliers in the ${zipCode} area for a ${machMatchState.detectedType}. In a live system, you'd see available options here. For now, you can call local equipment rental yards with your job details.`);
+  addChatMessage('bot',`Great! I'm preparing to connect you with rental suppliers in the ${zipCode} area for a ${machMatchState.detectedType}. In a live system, you'd see available options here. For now, I recommend contacting local rental companies directly—most can fulfill your request within 24-48 hours.`);
 }
 function resetForm(){
   document.getElementById('jobDesc').value='';
@@ -963,15 +964,15 @@ function handleQuickReply(action){
       break;
     case 'askDelivery':
       addChatMessage('user','Is delivery available?');
-      addChatMessage('bot','Many suppliers offer delivery—it depends on the supplier and distance. When you connect with local rental companies, ask about their delivery radius and fees. Some offer free delivery over a certain distance.');
+      addChatMessage('bot','Many suppliers offer delivery—it depends on the supplier and distance. When you connect with local rental companies, ask about their delivery radius and fees. Some offer free delivery within 10-25 miles.');
       break;
     case 'updateConstraints':
       addChatMessage('user','My jobsite has different access constraints');
-      addChatMessage('bot','Tell me more about the access. For example: How wide is the entrance? Is it paved or soft ground? Any height restrictions? These details help ensure the equipment can actually get to where you need it.');
+      addChatMessage('bot','Tell me more about the access. For example: How wide is the entrance? Is it paved or soft ground? Any height restrictions? These details help ensure the equipment can actually fit and operate safely.');
       break;
     case 'askCosts':
       addChatMessage('user','What are typical rental costs?');
-      addChatMessage('bot','Pricing varies widely by equipment type, location, duration, and supplier. I don't show specific pricing, but when you connect with local suppliers, ask about daily, weekly, and monthly rates. Most will provide quotes based on your exact job details.');
+      addChatMessage('bot','Pricing varies widely by equipment type, location, duration, and supplier. I don't show specific pricing, but when you connect with local suppliers, ask about daily, weekly, and monthly rates to compare options.');
       break;
   }
 }
@@ -984,27 +985,22 @@ function sendGuideMessage(){
   const lowerText=text.toLowerCase();
   let response='';
   if(lowerText.includes('size')||lowerText.includes('how big')){
-    response='Equipment sizing depends on your job scope. For excavators, consider digging depth and bucket capacity. For loaders, think about material volume and hardness. Ask me about your specific job and I'll help you figure it out.';
+    response='Equipment sizing depends on your job scope. For excavators, consider digging depth and bucket capacity. For loaders, think about material volume and hardness. Ask me about your specific project needs.';
   }else if(lowerText.includes('attachment')||lowerText.includes('bucket')||lowerText.includes('teeth')){
-    response='Many pieces of equipment come with interchangeable attachments. Buckets, grapples, and specialized teeth can change how the machine performs. When you rent, the supplier can recommend the right attachment combo for your material.';
+    response='Many pieces of equipment come with interchangeable attachments. Buckets, grapples, and specialized teeth can change how the machine performs. When you rent, the supplier can recommend the right attachments.';
   }else if(lowerText.includes('operator')||lowerText.includes('certified')){
-    response='Most rental agreements specify whether you need a certified operator or if you can operate it yourself. Many contractors provide their own operators. Always clarify this with the rental company—licensing and insurance matter.';
+    response='Most rental agreements specify whether you need a certified operator or if you can operate it yourself. Many contractors provide their own operators. Always clarify this with the rental company.';
   }else if(lowerText.includes('how long')||lowerText.includes('duration')||lowerText.includes('daily')){
-    response='Rental terms vary. Many companies offer daily, weekly, and monthly rates. Longer terms are usually cheaper per day. Discuss your project timeline with the supplier to find the best rental period.';
+    response='Rental terms vary. Many companies offer daily, weekly, and monthly rates. Longer terms are usually cheaper per day. Discuss your project timeline with the supplier to find the best rate.';
   }else if(lowerText.includes('maintenance')||lowerText.includes('fuel')){
     response='That depends on the rental agreement. Some suppliers handle fuel and maintenance; others pass that to you. Always ask: "What's included?" and "Who pays for fuel and regular maintenance?"';
   }else if(lowerText.includes('difference')||lowerText.includes('vs')){
-    response='Different machines handle different jobs. For example: a skid steer is compact and versatile in tight spaces, while a wheel loader moves high volumes fast. Tell me your specific job and I can explain which is better.';
+    response='Different machines handle different jobs. For example: a skid steer is compact and versatile in tight spaces, while a wheel loader moves high volumes fast. Tell me your specific job and I'll help compare.';
   }else{
-    response='That's a great question! Here's what I'd suggest: <strong>1)</strong> Describe the specific part of your project that's confusing. <strong>2)</strong> Tell me the constraints (space, digging depth, material type, timeline). <strong>3)</strong> I'll help narrow down the right equipment. Want to start fresh with a job description?';
+    response='That's a great question! Here's what I'd suggest: <strong>1)</strong> Describe the specific part of your project that's confusing. <strong>2)</strong> Tell me the constraints (space, digging depth, timeline). <strong>3)</strong> I'll guide you from there.';
   }
-  setTimeout(()=>{
-    addChatMessage('bot',response);
-  },200);
+  addChatMessage('bot',response);
 }
-window.addEventListener('DOMContentLoaded',()=>{
-  addChatMessage('bot','Hi! I'm MachGuide. Describe your project in the form on the left, and I'll help you find the perfect equipment. Or, ask me a question directly!');
-});
 </script>
 </body>
 </html>
